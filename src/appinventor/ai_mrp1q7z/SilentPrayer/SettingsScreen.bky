@@ -1,0 +1,484 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="procedures_defnoreturn" x="18" y="-197">
+    <mutation></mutation>
+    <title name="NAME">readData</title>
+    <statement name="STACK">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="TextBox" set_or_get="set" property_name="Text" is_generic="false" instance_name="MessageText"></mutation>
+        <title name="COMPONENT_SELECTOR">MessageText</title>
+        <title name="PROP">Text</title>
+        <value name="VALUE">
+          <block type="component_method" inline="false">
+            <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="SettingsDB"></mutation>
+            <title name="COMPONENT_SELECTOR">SettingsDB</title>
+            <value name="ARG0">
+              <block type="text">
+                <title name="TEXT">Message</title>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="text">
+                <title name="TEXT"></title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" inline="false">
+            <mutation component_type="Player" set_or_get="set" property_name="Source" is_generic="false" instance_name="PrayerPlayer"></mutation>
+            <title name="COMPONENT_SELECTOR">PrayerPlayer</title>
+            <title name="PROP">Source</title>
+            <value name="VALUE">
+              <block type="component_method" inline="false">
+                <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="SettingsDB"></mutation>
+                <title name="COMPONENT_SELECTOR">SettingsDB</title>
+                <value name="ARG0">
+                  <block type="text">
+                    <title name="TEXT">SoundPath</title>
+                  </block>
+                </value>
+                <value name="ARG1">
+                  <block type="text">
+                    <title name="TEXT"></title>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="local_declaration_statement" inline="false">
+                <mutation>
+                  <localname name="interval"></localname>
+                </mutation>
+                <title name="VAR0">interval</title>
+                <value name="DECL0">
+                  <block type="component_method" inline="false">
+                    <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="SettingsDB"></mutation>
+                    <title name="COMPONENT_SELECTOR">SettingsDB</title>
+                    <value name="ARG0">
+                      <block type="text">
+                        <title name="TEXT">MsgTypingInterval</title>
+                      </block>
+                    </value>
+                    <value name="ARG1">
+                      <block type="text">
+                        <title name="TEXT">300</title>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="STACK">
+                  <block type="component_set_get" inline="false">
+                    <mutation component_type="ListPicker" set_or_get="set" property_name="Text" is_generic="false" instance_name="MsgTypingIntervalPicker"></mutation>
+                    <title name="COMPONENT_SELECTOR">MsgTypingIntervalPicker</title>
+                    <title name="PROP">Text</title>
+                    <value name="VALUE">
+                      <block type="text_join" inline="false">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="lexical_variable_get">
+                            <title name="VAR">interval</title>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="text">
+                            <title name="TEXT"> ミリ秒</title>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" inline="false">
+                        <mutation component_type="ListPicker" set_or_get="set" property_name="Selection" is_generic="false" instance_name="MsgTypingIntervalPicker"></mutation>
+                        <title name="COMPONENT_SELECTOR">MsgTypingIntervalPicker</title>
+                        <title name="PROP">Selection</title>
+                        <value name="VALUE">
+                          <block type="lexical_variable_get">
+                            <title name="VAR">interval</title>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="17" y="175">
+    <mutation component_type="Form" instance_name="SettingsScreen" event_name="Initialize"></mutation>
+    <title name="COMPONENT_SELECTOR">SettingsScreen</title>
+    <statement name="DO">
+      <block type="procedures_callnoreturn">
+        <mutation name="readData"></mutation>
+        <title name="PROCNAME">readData</title>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="546" y="200">
+    <mutation component_type="TextBox" instance_name="MessageText" event_name="LostFocus"></mutation>
+    <title name="COMPONENT_SELECTOR">MessageText</title>
+    <statement name="DO">
+      <block type="procedures_callnoreturn">
+        <mutation name="saveData"></mutation>
+        <title name="PROCNAME">saveData</title>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="17" y="285">
+    <mutation component_type="Button" instance_name="RecButton" event_name="Click"></mutation>
+    <title name="COMPONENT_SELECTOR">RecButton</title>
+    <statement name="DO">
+      <block type="controls_if" inline="false">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" inline="true">
+            <title name="OP">EQ</title>
+            <value name="A">
+              <block type="component_set_get">
+                <mutation component_type="VerticalArrangement" set_or_get="get" property_name="Visible" is_generic="false" instance_name="RecDialog"></mutation>
+                <title name="COMPONENT_SELECTOR">RecDialog</title>
+                <title name="PROP">Visible</title>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_boolean">
+                <title name="BOOL">TRUE</title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set_get" inline="false">
+            <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="RecDialog"></mutation>
+            <title name="COMPONENT_SELECTOR">RecDialog</title>
+            <title name="PROP">Visible</title>
+            <value name="VALUE">
+              <block type="logic_boolean">
+                <title name="BOOL">FALSE</title>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_set_get" inline="false">
+            <mutation component_type="VerticalArrangement" set_or_get="set" property_name="Visible" is_generic="false" instance_name="RecDialog"></mutation>
+            <title name="COMPONENT_SELECTOR">RecDialog</title>
+            <title name="PROP">Visible</title>
+            <value name="VALUE">
+              <block type="logic_boolean">
+                <title name="BOOL">TRUE</title>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="546" y="289">
+    <mutation component_type="ListPicker" instance_name="MsgTypingIntervalPicker" event_name="AfterPicking"></mutation>
+    <title name="COMPONENT_SELECTOR">MsgTypingIntervalPicker</title>
+    <statement name="DO">
+      <block type="procedures_callnoreturn">
+        <mutation name="saveData"></mutation>
+        <title name="PROCNAME">saveData</title>
+        <next>
+          <block type="component_set_get" inline="false">
+            <mutation component_type="ListPicker" set_or_get="set" property_name="Text" is_generic="false" instance_name="MsgTypingIntervalPicker"></mutation>
+            <title name="COMPONENT_SELECTOR">MsgTypingIntervalPicker</title>
+            <title name="PROP">Text</title>
+            <value name="VALUE">
+              <block type="text_join" inline="false">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                  <block type="component_set_get">
+                    <mutation component_type="ListPicker" set_or_get="get" property_name="Selection" is_generic="false" instance_name="MsgTypingIntervalPicker"></mutation>
+                    <title name="COMPONENT_SELECTOR">MsgTypingIntervalPicker</title>
+                    <title name="PROP">Selection</title>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="text">
+                    <title name="TEXT"> ミリ秒</title>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="547" y="448">
+    <mutation></mutation>
+    <title name="NAME">saveData</title>
+    <statement name="STACK">
+      <block type="component_method" inline="false">
+        <mutation component_type="TinyDB" method_name="StoreValue" is_generic="false" instance_name="SettingsDB"></mutation>
+        <title name="COMPONENT_SELECTOR">SettingsDB</title>
+        <value name="ARG0">
+          <block type="text">
+            <title name="TEXT">Message</title>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="component_set_get">
+            <mutation component_type="TextBox" set_or_get="get" property_name="Text" is_generic="false" instance_name="MessageText"></mutation>
+            <title name="COMPONENT_SELECTOR">MessageText</title>
+            <title name="PROP">Text</title>
+          </block>
+        </value>
+        <next>
+          <block type="component_method" inline="false">
+            <mutation component_type="TinyDB" method_name="StoreValue" is_generic="false" instance_name="SettingsDB"></mutation>
+            <title name="COMPONENT_SELECTOR">SettingsDB</title>
+            <value name="ARG0">
+              <block type="text">
+                <title name="TEXT">MsgTypingInterval</title>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="component_set_get">
+                <mutation component_type="ListPicker" set_or_get="get" property_name="Selection" is_generic="false" instance_name="MsgTypingIntervalPicker"></mutation>
+                <title name="COMPONENT_SELECTOR">MsgTypingIntervalPicker</title>
+                <title name="PROP">Selection</title>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="19" y="568">
+    <mutation component_type="Button" instance_name="PlayButton" event_name="Click"></mutation>
+    <title name="COMPONENT_SELECTOR">PlayButton</title>
+    <statement name="DO">
+      <block type="component_method">
+        <mutation component_type="Player" method_name="Start" is_generic="false" instance_name="PrayerPlayer"></mutation>
+        <title name="COMPONENT_SELECTOR">PrayerPlayer</title>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="34" y="712">
+    <mutation component_type="Button" instance_name="StartRecButton" event_name="Click"></mutation>
+    <title name="COMPONENT_SELECTOR">StartRecButton</title>
+    <statement name="DO">
+      <block type="controls_if" inline="false">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" inline="true">
+            <title name="OP">EQ</title>
+            <value name="A">
+              <block type="component_set_get">
+                <mutation component_type="Button" set_or_get="get" property_name="Text" is_generic="false" instance_name="StartRecButton"></mutation>
+                <title name="COMPONENT_SELECTOR">StartRecButton</title>
+                <title name="PROP">Text</title>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text">
+                <title name="TEXT">REC</title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_method">
+            <mutation component_type="SoundRecorder" method_name="Start" is_generic="false" instance_name="PrayerRecorder"></mutation>
+            <title name="COMPONENT_SELECTOR">PrayerRecorder</title>
+            <next>
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Clock" set_or_get="set" property_name="TimerInterval" is_generic="false" instance_name="StopRecClock"></mutation>
+                <title name="COMPONENT_SELECTOR">StopRecClock</title>
+                <title name="PROP">TimerInterval</title>
+                <value name="VALUE">
+                  <block type="math_number">
+                    <title name="NUM">5000</title>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" inline="false">
+                    <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="StopRecClock"></mutation>
+                    <title name="COMPONENT_SELECTOR">StopRecClock</title>
+                    <title name="PROP">TimerEnabled</title>
+                    <value name="VALUE">
+                      <block type="logic_boolean">
+                        <title name="BOOL">TRUE</title>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method">
+            <mutation component_type="SoundRecorder" method_name="Stop" is_generic="false" instance_name="PrayerRecorder"></mutation>
+            <title name="COMPONENT_SELECTOR">PrayerRecorder</title>
+            <next>
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="StopRecClock"></mutation>
+                <title name="COMPONENT_SELECTOR">StopRecClock</title>
+                <title name="PROP">TimerEnabled</title>
+                <value name="VALUE">
+                  <block type="logic_boolean">
+                    <title name="BOOL">FALSE</title>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="550" y="882">
+    <mutation component_type="SoundRecorder" instance_name="PrayerRecorder" event_name="StartedRecording"></mutation>
+    <title name="COMPONENT_SELECTOR">PrayerRecorder</title>
+    <statement name="DO">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="Button" set_or_get="set" property_name="Text" is_generic="false" instance_name="StartRecButton"></mutation>
+        <title name="COMPONENT_SELECTOR">StartRecButton</title>
+        <title name="PROP">Text</title>
+        <value name="VALUE">
+          <block type="text">
+            <title name="TEXT">録音停止</title>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" inline="false">
+            <mutation component_type="Button" set_or_get="set" property_name="TextColor" is_generic="false" instance_name="StartRecButton"></mutation>
+            <title name="COMPONENT_SELECTOR">StartRecButton</title>
+            <title name="PROP">TextColor</title>
+            <value name="VALUE">
+              <block type="color_light_gray">
+                <title name="COLOR">#000000</title>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="34" y="957">
+    <mutation component_type="Clock" instance_name="StopRecClock" event_name="Timer"></mutation>
+    <title name="COMPONENT_SELECTOR">StopRecClock</title>
+    <statement name="DO">
+      <block type="component_method">
+        <mutation component_type="SoundRecorder" method_name="Stop" is_generic="false" instance_name="PrayerRecorder"></mutation>
+        <title name="COMPONENT_SELECTOR">PrayerRecorder</title>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="553" y="989">
+    <mutation component_type="SoundRecorder" instance_name="PrayerRecorder" event_name="StoppedRecording"></mutation>
+    <title name="COMPONENT_SELECTOR">PrayerRecorder</title>
+    <statement name="DO">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="Button" set_or_get="set" property_name="Text" is_generic="false" instance_name="StartRecButton"></mutation>
+        <title name="COMPONENT_SELECTOR">StartRecButton</title>
+        <title name="PROP">Text</title>
+        <value name="VALUE">
+          <block type="text">
+            <title name="TEXT">REC</title>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" inline="false">
+            <mutation component_type="Button" set_or_get="set" property_name="TextColor" is_generic="false" instance_name="StartRecButton"></mutation>
+            <title name="COMPONENT_SELECTOR">StartRecButton</title>
+            <title name="PROP">TextColor</title>
+            <value name="VALUE">
+              <block type="color_light_gray">
+                <title name="COLOR">#ff0000</title>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="25" y="1360">
+    <mutation component_type="Form" instance_name="SettingsScreen" event_name="BackPressed"></mutation>
+    <title name="COMPONENT_SELECTOR">SettingsScreen</title>
+    <statement name="DO">
+      <block type="procedures_callnoreturn">
+        <mutation name="saveData"></mutation>
+        <title name="PROCNAME">saveData</title>
+        <next>
+          <block type="controls_closeScreen"></block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="24" y="1455">
+    <mutation component_type="SoundRecorder" instance_name="PrayerRecorder" event_name="AfterSoundRecorded"></mutation>
+    <title name="COMPONENT_SELECTOR">PrayerRecorder</title>
+    <statement name="DO">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="StartRecButton"></mutation>
+        <title name="COMPONENT_SELECTOR">StartRecButton</title>
+        <title name="PROP">Enabled</title>
+        <value name="VALUE">
+          <block type="logic_false">
+            <title name="BOOL">FALSE</title>
+          </block>
+        </value>
+        <next>
+          <block type="component_method" inline="false">
+            <mutation component_type="TinyDB" method_name="StoreValue" is_generic="false" instance_name="SettingsDB"></mutation>
+            <title name="COMPONENT_SELECTOR">SettingsDB</title>
+            <value name="ARG0">
+              <block type="text">
+                <title name="TEXT">SoundPath</title>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="lexical_variable_get">
+                <title name="VAR">sound</title>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Player" set_or_get="set" property_name="Source" is_generic="false" instance_name="PrayerPlayer"></mutation>
+                <title name="COMPONENT_SELECTOR">PrayerPlayer</title>
+                <title name="PROP">Source</title>
+                <value name="VALUE">
+                  <block type="lexical_variable_get">
+                    <title name="VAR">sound</title>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_method">
+                    <mutation component_type="Player" method_name="Start" is_generic="false" instance_name="PrayerPlayer"></mutation>
+                    <title name="COMPONENT_SELECTOR">PrayerPlayer</title>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="548" y="1435">
+    <mutation component_type="Player" instance_name="PrayerPlayer" event_name="Completed"></mutation>
+    <title name="COMPONENT_SELECTOR">PrayerPlayer</title>
+    <statement name="DO">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="StartRecButton"></mutation>
+        <title name="COMPONENT_SELECTOR">StartRecButton</title>
+        <title name="PROP">Enabled</title>
+        <value name="VALUE">
+          <block type="logic_false">
+            <title name="BOOL">TRUE</title>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <yacodeblocks ya-version="83" language-version="17"></yacodeblocks>
+</xml>

@@ -1,0 +1,493 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="global_declaration" inline="false" x="-2" y="-1122">
+    <title name="NAME">g_defaltMessage</title>
+    <value name="VALUE">
+      <block type="text_join" inline="false">
+        <mutation items="10"></mutation>
+        <value name="ADD0">
+          <block type="text">
+            <title name="TEXT">設定画面でメッセージを入力してください</title>
+          </block>
+        </value>
+        <value name="ADD1">
+          <block type="text">
+            <title name="TEXT">以下は、サンプルです。</title>
+          </block>
+        </value>
+        <value name="ADD2">
+          <block type="text">
+            <title name="TEXT">すべての原点はあなた自身です。</title>
+          </block>
+        </value>
+        <value name="ADD3">
+          <block type="text">
+            <title name="TEXT">あなたが変われば、他人も世の中も変わります。</title>
+          </block>
+        </value>
+        <value name="ADD4">
+          <block type="text">
+            <title name="TEXT">まずは、自分を改革することからはじめましょう。</title>
+          </block>
+        </value>
+        <value name="ADD5">
+          <block type="text">
+            <title name="TEXT">私は、生まれ変わります。</title>
+          </block>
+        </value>
+        <value name="ADD6">
+          <block type="text">
+            <title name="TEXT">心を入れ替え、考えを改め、人生観を変えて、</title>
+          </block>
+        </value>
+        <value name="ADD7">
+          <block type="text">
+            <title name="TEXT">魂の内奥の神性を存分に発揮します。</title>
+          </block>
+        </value>
+        <value name="ADD8">
+          <block type="text">
+            <title name="TEXT">どうか．．．</title>
+          </block>
+        </value>
+        <value name="ADD9">
+          <block type="text">
+            <title name="TEXT">魂の奥底の力が存分に発揮できますように！</title>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" inline="false" x="-461" y="-870">
+    <title name="NAME">g_msgText</title>
+    <value name="VALUE">
+      <block type="text">
+        <title name="TEXT"></title>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="-460" y="-836">
+    <mutation component_type="Form" instance_name="scrPrayer" event_name="Initialize"></mutation>
+    <title name="COMPONENT_SELECTOR">scrPrayer</title>
+    <statement name="DO">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="MessageLabel"></mutation>
+        <title name="COMPONENT_SELECTOR">MessageLabel</title>
+        <title name="PROP">Text</title>
+        <value name="VALUE">
+          <block type="text">
+            <title name="TEXT"></title>
+          </block>
+        </value>
+        <next>
+          <block type="local_declaration_statement" inline="false">
+            <mutation>
+              <localname name="interval"></localname>
+            </mutation>
+            <title name="VAR0">interval</title>
+            <value name="DECL0">
+              <block type="component_method" inline="false">
+                <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="SettingsDB"></mutation>
+                <title name="COMPONENT_SELECTOR">SettingsDB</title>
+                <value name="ARG0">
+                  <block type="text">
+                    <title name="TEXT">MsgTypingInterval</title>
+                  </block>
+                </value>
+                <value name="ARG1">
+                  <block type="math_number">
+                    <title name="NUM">300</title>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="STACK">
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Clock" set_or_get="set" property_name="TimerInterval" is_generic="false" instance_name="PrintMessageClock"></mutation>
+                <title name="COMPONENT_SELECTOR">PrintMessageClock</title>
+                <title name="PROP">TimerInterval</title>
+                <value name="VALUE">
+                  <block type="controls_choose" inline="false">
+                    <value name="TEST">
+                      <block type="text_isEmpty" inline="false">
+                        <value name="VALUE">
+                          <block type="lexical_variable_get">
+                            <title name="VAR">interval</title>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="THENRETURN">
+                      <block type="math_number">
+                        <title name="NUM">300</title>
+                      </block>
+                    </value>
+                    <value name="ELSERETURN">
+                      <block type="lexical_variable_get">
+                        <title name="VAR">interval</title>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="PrintMessageClock"></mutation>
+                <title name="COMPONENT_SELECTOR">PrintMessageClock</title>
+                <title name="PROP">TimerEnabled</title>
+                <value name="VALUE">
+                  <block type="logic_boolean">
+                    <title name="BOOL">TRUE</title>
+                  </block>
+                </value>
+                <next>
+                  <block type="local_declaration_statement" inline="false">
+                    <mutation>
+                      <localname name="message"></localname>
+                    </mutation>
+                    <title name="VAR0">message</title>
+                    <value name="DECL0">
+                      <block type="component_method" inline="false">
+                        <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="SettingsDB"></mutation>
+                        <title name="COMPONENT_SELECTOR">SettingsDB</title>
+                        <value name="ARG0">
+                          <block type="text">
+                            <title name="TEXT">Message</title>
+                          </block>
+                        </value>
+                        <value name="ARG1">
+                          <block type="text">
+                            <title name="TEXT"></title>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="STACK">
+                      <block type="lexical_variable_set" inline="false">
+                        <title name="VAR">global g_msgText</title>
+                        <value name="VALUE">
+                          <block type="controls_choose" inline="false">
+                            <value name="TEST">
+                              <block type="text_isEmpty" inline="false">
+                                <value name="VALUE">
+                                  <block type="lexical_variable_get">
+                                    <title name="VAR">message</title>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="THENRETURN">
+                              <block type="lexical_variable_get">
+                                <title name="VAR">global g_defaltMessage</title>
+                              </block>
+                            </value>
+                            <value name="ELSERETURN">
+                              <block type="lexical_variable_get">
+                                <title name="VAR">message</title>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="component_set_get" inline="false">
+                        <mutation component_type="Sound" set_or_get="set" property_name="Source" is_generic="false" instance_name="PrayerSound"></mutation>
+                        <title name="COMPONENT_SELECTOR">PrayerSound</title>
+                        <title name="PROP">Source</title>
+                        <value name="VALUE">
+                          <block type="component_method" inline="false">
+                            <mutation component_type="TinyDB" method_name="GetValue" is_generic="false" instance_name="SettingsDB"></mutation>
+                            <title name="COMPONENT_SELECTOR">SettingsDB</title>
+                            <value name="ARG0">
+                              <block type="text">
+                                <title name="TEXT">SoundPath</title>
+                              </block>
+                            </value>
+                            <value name="ARG1">
+                              <block type="text">
+                                <title name="TEXT">file:///mnt/sdcard/AppInventor/assets/prayer1.wav</title>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="global_declaration" inline="false" x="-448" y="-267">
+    <title name="NAME">g_msgNo</title>
+    <value name="VALUE">
+      <block type="math_number">
+        <title name="NUM">0</title>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="-435" y="-197">
+    <mutation component_type="Clock" instance_name="PrintMessageClock" event_name="Timer"></mutation>
+    <title name="COMPONENT_SELECTOR">PrintMessageClock</title>
+    <statement name="DO">
+      <block type="lexical_variable_set" inline="false">
+        <title name="VAR">global g_msgNo</title>
+        <value name="VALUE">
+          <block type="math_add" inline="true">
+            <mutation items="2"></mutation>
+            <value name="NUM0">
+              <block type="lexical_variable_get">
+                <title name="VAR">global g_msgNo</title>
+              </block>
+            </value>
+            <value name="NUM1">
+              <block type="math_number">
+                <title name="NUM">1</title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="controls_if" inline="false">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="math_compare" inline="true">
+                <title name="OP">LTE</title>
+                <value name="A">
+                  <block type="lexical_variable_get">
+                    <title name="VAR">global g_msgNo</title>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text_length" inline="false">
+                    <value name="VALUE">
+                      <block type="lexical_variable_get">
+                        <title name="VAR">global g_msgText</title>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="MessageLabel"></mutation>
+                <title name="COMPONENT_SELECTOR">MessageLabel</title>
+                <title name="PROP">Text</title>
+                <value name="VALUE">
+                  <block type="text_segment" inline="false">
+                    <value name="TEXT">
+                      <block type="lexical_variable_get">
+                        <title name="VAR">global g_msgText</title>
+                      </block>
+                    </value>
+                    <value name="START">
+                      <block type="math_number">
+                        <title name="NUM">1</title>
+                      </block>
+                    </value>
+                    <value name="LENGTH">
+                      <block type="lexical_variable_get">
+                        <title name="VAR">global g_msgNo</title>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" inline="false">
+                    <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="MessageCount"></mutation>
+                    <title name="COMPONENT_SELECTOR">MessageCount</title>
+                    <title name="PROP">Text</title>
+                    <value name="VALUE">
+                      <block type="text_join" inline="false">
+                        <mutation items="5"></mutation>
+                        <value name="ADD0">
+                          <block type="text">
+                            <title name="TEXT">(</title>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="lexical_variable_get">
+                            <title name="VAR">global g_msgNo</title>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="text">
+                            <title name="TEXT">/</title>
+                          </block>
+                        </value>
+                        <value name="ADD3">
+                          <block type="text_length" inline="false">
+                            <value name="VALUE">
+                              <block type="lexical_variable_get">
+                                <title name="VAR">global g_msgText</title>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="ADD4">
+                          <block type="text">
+                            <title name="TEXT">)</title>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="component_set_get" inline="false">
+                <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="MessageCount"></mutation>
+                <title name="COMPONENT_SELECTOR">MessageCount</title>
+                <title name="PROP">Text</title>
+                <value name="VALUE">
+                  <block type="text">
+                    <title name="TEXT">目を閉じて、１２回祈ります</title>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" inline="false">
+                    <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="PrintMessageClock"></mutation>
+                    <title name="COMPONENT_SELECTOR">PrintMessageClock</title>
+                    <title name="PROP">TimerEnabled</title>
+                    <value name="VALUE">
+                      <block type="logic_false">
+                        <title name="BOOL">FALSE</title>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" inline="false">
+                        <mutation component_type="Clock" set_or_get="set" property_name="TimerInterval" is_generic="false" instance_name="PlayPrayerClock"></mutation>
+                        <title name="COMPONENT_SELECTOR">PlayPrayerClock</title>
+                        <title name="PROP">TimerInterval</title>
+                        <value name="VALUE">
+                          <block type="math_number">
+                            <title name="NUM">5000</title>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" inline="false">
+                            <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="PlayPrayerClock"></mutation>
+                            <title name="COMPONENT_SELECTOR">PlayPrayerClock</title>
+                            <title name="PROP">TimerEnabled</title>
+                            <value name="VALUE">
+                              <block type="logic_false">
+                                <title name="BOOL">TRUE</title>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="component_method">
+                                <mutation component_type="Sound" method_name="Play" is_generic="false" instance_name="StartSound"></mutation>
+                                <title name="COMPONENT_SELECTOR">StartSound</title>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="global_declaration" inline="false" x="-447" y="250">
+    <title name="NAME">g_prayerCnt</title>
+    <value name="VALUE">
+      <block type="math_number">
+        <title name="NUM">0</title>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="-446" y="287">
+    <mutation component_type="Clock" instance_name="PlayPrayerClock" event_name="Timer"></mutation>
+    <title name="COMPONENT_SELECTOR">PlayPrayerClock</title>
+    <statement name="DO">
+      <block type="lexical_variable_set" inline="false">
+        <title name="VAR">global g_prayerCnt</title>
+        <value name="VALUE">
+          <block type="math_add" inline="true">
+            <mutation items="2"></mutation>
+            <value name="NUM0">
+              <block type="lexical_variable_get">
+                <title name="VAR">global g_prayerCnt</title>
+              </block>
+            </value>
+            <value name="NUM1">
+              <block type="math_number">
+                <title name="NUM">1</title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="controls_if" inline="false">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="math_compare" inline="true">
+                <title name="OP">LTE</title>
+                <value name="A">
+                  <block type="lexical_variable_get">
+                    <title name="VAR">global g_prayerCnt</title>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number">
+                    <title name="NUM">12</title>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="component_method">
+                <mutation component_type="Sound" method_name="Play" is_generic="false" instance_name="PrayerSound"></mutation>
+                <title name="COMPONENT_SELECTOR">PrayerSound</title>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="component_method">
+                <mutation component_type="Player" method_name="Start" is_generic="false" instance_name="EndPlayer"></mutation>
+                <title name="COMPONENT_SELECTOR">EndPlayer</title>
+                <next>
+                  <block type="component_set_get" inline="false">
+                    <mutation component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="PlayPrayerClock"></mutation>
+                    <title name="COMPONENT_SELECTOR">PlayPrayerClock</title>
+                    <title name="PROP">TimerEnabled</title>
+                    <value name="VALUE">
+                      <block type="logic_false">
+                        <title name="BOOL">FALSE</title>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="-445" y="528">
+    <mutation component_type="Form" instance_name="scrPrayer" event_name="BackPressed"></mutation>
+    <title name="COMPONENT_SELECTOR">scrPrayer</title>
+    <statement name="DO">
+      <block type="controls_closeScreen"></block>
+    </statement>
+  </block>
+  <block type="component_event" x="-176" y="530">
+    <mutation component_type="Player" instance_name="EndPlayer" event_name="Completed"></mutation>
+    <title name="COMPONENT_SELECTOR">EndPlayer</title>
+    <statement name="DO">
+      <block type="controls_closeScreen"></block>
+    </statement>
+  </block>
+  <yacodeblocks ya-version="83" language-version="17"></yacodeblocks>
+</xml>

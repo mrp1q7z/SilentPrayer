@@ -1,0 +1,42 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="component_event" x="309" y="40">
+    <mutation component_type="Button" instance_name="StartButton" event_name="Click"></mutation>
+    <title name="COMPONENT_SELECTOR">StartButton</title>
+    <statement name="DO">
+      <block type="controls_openAnotherScreen" inline="false">
+        <value name="SCREEN">
+          <block type="text">
+            <title name="TEXT">scrPrayer</title>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="305" y="132">
+    <mutation component_type="Button" instance_name="SettingsButton" event_name="Click"></mutation>
+    <title name="COMPONENT_SELECTOR">SettingsButton</title>
+    <statement name="DO">
+      <block type="controls_openAnotherScreen" inline="false">
+        <value name="SCREEN">
+          <block type="text">
+            <title name="TEXT">SettingsScreen</title>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="307" y="227">
+    <mutation component_type="Button" instance_name="UsageButton" event_name="Click"></mutation>
+    <title name="COMPONENT_SELECTOR">UsageButton</title>
+    <statement name="DO">
+      <block type="controls_openAnotherScreen" inline="false">
+        <value name="SCREEN">
+          <block type="text">
+            <title name="TEXT">UsageScreen</title>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <yacodeblocks ya-version="83" language-version="17"></yacodeblocks>
+</xml>

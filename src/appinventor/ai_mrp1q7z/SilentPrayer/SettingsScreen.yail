@@ -1,0 +1,187 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_mrp1q7z.SilentPrayer.SettingsScreen SettingsScreen)
+(require <com.google.youngandroid.runtime>)
+
+(def (p$readData )  (set-and-coerce-property! 'MessageText 'Text (call-component-method 'SettingsDB 'GetValue (*list-for-runtime* "Message"  "") '(text any)) 'text)(set-and-coerce-property! 'PrayerPlayer 'Source (call-component-method 'SettingsDB 'GetValue (*list-for-runtime* "SoundPath"  "") '(text any)) 'text)(let ( ($interval (call-component-method 'SettingsDB 'GetValue (*list-for-runtime* "MsgTypingInterval"  "300") '(text any)))  )   (set-and-coerce-property! 'MsgTypingIntervalPicker 'Text (call-yail-primitive string-append (*list-for-runtime* (lexical-value $interval) " \u30df\u30ea\u79d2" ) '(text text ) "join") 'text)(set-and-coerce-property! 'MsgTypingIntervalPicker 'Selection (lexical-value $interval) 'text) ))
+(def (p$saveData )  (call-component-method 'SettingsDB 'StoreValue (*list-for-runtime* "Message"  (get-property 'MessageText 'Text)) '(text any))(call-component-method 'SettingsDB 'StoreValue (*list-for-runtime* "MsgTypingInterval"  (get-property 'MsgTypingIntervalPicker 'Selection)) '(text any)))
+;;; SettingsScreen
+
+(do-after-form-creation (set-and-coerce-property! 'SettingsScreen 'BackgroundColor #xFF000000 'number)
+ (set-and-coerce-property! 'SettingsScreen 'Title "\u8a2d\u5b9a" 'text)
+)
+
+(define-event SettingsScreen Initialize()(set-this-form)
+    ((get-var p$readData) ))
+(define-event SettingsScreen BackPressed()(set-this-form)
+    ((get-var p$saveData) )(call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen"))
+;;; FirstMsgLabel
+
+(add-component SettingsScreen Label FirstMsgLabel 
+(set-and-coerce-property! 'FirstMsgLabel 'BackgroundColor #xFFCCCCCC 'number)
+
+(set-and-coerce-property! 'FirstMsgLabel 'Text "\u6700\u521d\u306e\u30e1\u30c3\u30bb\u30fc\u30b8" 'text)
+
+(set-and-coerce-property! 'FirstMsgLabel 'Width -2 'number)
+
+)
+
+;;; MessageText
+
+(add-component SettingsScreen TextBox MessageText 
+(set-and-coerce-property! 'MessageText 'BackgroundColor #xFF000000 'number)
+
+(set-and-coerce-property! 'MessageText 'Hint "\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044" 'text)
+
+(set-and-coerce-property! 'MessageText 'MultiLine #t 'boolean)
+
+(set-and-coerce-property! 'MessageText 'TextColor #xFFFFFFFF 'number)
+
+(set-and-coerce-property! 'MessageText 'Width -2 'number)
+
+)
+
+(define-event MessageText LostFocus()(set-this-form)
+    ((get-var p$saveData) ))
+;;; MsgTypingIntervalLabel
+
+(add-component SettingsScreen Label MsgTypingIntervalLabel 
+(set-and-coerce-property! 'MsgTypingIntervalLabel 'BackgroundColor #xFFCCCCCC 'number)
+
+(set-and-coerce-property! 'MsgTypingIntervalLabel 'Text "\u30e1\u30c3\u30bb\u30fc\u30b8\u306e\u30bf\u30a4\u30d7\u9593\u9694" 'text)
+
+(set-and-coerce-property! 'MsgTypingIntervalLabel 'Width -2 'number)
+
+)
+
+;;; MsgTypingIntervalPicker
+
+(add-component SettingsScreen ListPicker MsgTypingIntervalPicker 
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'BackgroundColor #xFFFFC800 'number)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'ElementsFromString "50,100,200,300,500,1000" 'text)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'Image "menu_more.png" 'text)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'Text "300 \u30df\u30ea\u79d2" 'text)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'TextAlignment 0 'number)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'TextColor #xFFFFFFFF 'number)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'Title "\u30e1\u30c3\u30bb\u30fc\u30b8\u306e\u30bf\u30a4\u30d4\u30f3\u30b0\u9593\u9694\u3092\u9078\u629e" 'text)
+
+(set-and-coerce-property! 'MsgTypingIntervalPicker 'Width -2 'number)
+
+)
+
+(define-event MsgTypingIntervalPicker AfterPicking()(set-this-form)
+    ((get-var p$saveData) )(set-and-coerce-property! 'MsgTypingIntervalPicker 'Text (call-yail-primitive string-append (*list-for-runtime* (get-property 'MsgTypingIntervalPicker 'Selection) " \u30df\u30ea\u79d2" ) '(text text ) "join") 'text))
+;;; PrayerLabel
+
+(add-component SettingsScreen Label PrayerLabel 
+(set-and-coerce-property! 'PrayerLabel 'BackgroundColor #xFFCCCCCC 'number)
+
+(set-and-coerce-property! 'PrayerLabel 'Text "\u7948\u308a\u306e\u8a00\u8449" 'text)
+
+(set-and-coerce-property! 'PrayerLabel 'Width -2 'number)
+
+)
+
+;;; RecButton
+
+(add-component SettingsScreen Button RecButton 
+(set-and-coerce-property! 'RecButton 'Image "menu_more.png" 'text)
+
+(set-and-coerce-property! 'RecButton 'Text "\u9332\u97f3\u3059\u308b\u5834\u5408\u306f\u3053\u3053\u3092\u30bf\u30c3\u30d7" 'text)
+
+(set-and-coerce-property! 'RecButton 'TextAlignment 0 'number)
+
+(set-and-coerce-property! 'RecButton 'TextColor #xFFFFFFFF 'number)
+
+)
+
+(define-event RecButton Click()(set-this-form)
+    (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'RecDialog 'Visible) #t) '(any any) "=") (begin   (set-and-coerce-property! 'RecDialog 'Visible #f 'boolean)) (begin   (set-and-coerce-property! 'RecDialog 'Visible #t 'boolean))))
+;;; RecDialog
+
+(add-component SettingsScreen VerticalArrangement RecDialog 
+(set-and-coerce-property! 'RecDialog 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'RecDialog 'Width -2 'number)
+
+)
+
+;;; RecCommentLabel
+
+(add-component RecDialog Label RecCommentLabel 
+(set-and-coerce-property! 'RecCommentLabel 'Text "\uff15\u79d2\u4f4d\u5185\u3067\u304a\u9858\u3044\u3057\u307e\u3059" 'text)
+
+(set-and-coerce-property! 'RecCommentLabel 'TextColor #xFFFFFFFF 'number)
+
+)
+
+;;; HorizontalArrangement2
+
+(add-component RecDialog HorizontalArrangement HorizontalArrangement2 
+(set-and-coerce-property! 'HorizontalArrangement2 'Width -2 'number)
+
+)
+
+;;; StartRecButton
+
+(add-component HorizontalArrangement2 Button StartRecButton 
+(set-and-coerce-property! 'StartRecButton 'Text "REC" 'text)
+
+(set-and-coerce-property! 'StartRecButton 'TextColor #xFFFF0000 'number)
+
+(set-and-coerce-property! 'StartRecButton 'Width -2 'number)
+
+)
+
+(define-event StartRecButton Click()(set-this-form)
+    (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'StartRecButton 'Text) "REC") '(any any) "=") (begin   (call-component-method 'PrayerRecorder 'Start (*list-for-runtime*) '())(set-and-coerce-property! 'StopRecClock 'TimerInterval 5000 'number)(set-and-coerce-property! 'StopRecClock 'TimerEnabled #t 'boolean)) (begin   (call-component-method 'PrayerRecorder 'Stop (*list-for-runtime*) '())(set-and-coerce-property! 'StopRecClock 'TimerEnabled #f 'boolean))))
+;;; PlayButton
+
+(add-component HorizontalArrangement2 Button PlayButton 
+(set-and-coerce-property! 'PlayButton 'Text "\u518d\u751f" 'text)
+
+(set-and-coerce-property! 'PlayButton 'Width -2 'number)
+
+)
+
+(define-event PlayButton Click()(set-this-form)
+    (call-component-method 'PrayerPlayer 'Start (*list-for-runtime*) '()))
+;;; SettingsDB
+
+(add-component SettingsScreen TinyDB SettingsDB 
+)
+
+;;; PrayerPlayer
+
+(add-component SettingsScreen Player PrayerPlayer 
+)
+
+(define-event PrayerPlayer Completed()(set-this-form)
+    (set-and-coerce-property! 'StartRecButton 'Enabled #t 'boolean))
+;;; PrayerRecorder
+
+(add-component SettingsScreen SoundRecorder PrayerRecorder 
+)
+
+(define-event PrayerRecorder StartedRecording()(set-this-form)
+    (set-and-coerce-property! 'StartRecButton 'Text "\u9332\u97f3\u505c\u6b62" 'text)(set-and-coerce-property! 'StartRecButton 'TextColor -16777216 'number))
+(define-event PrayerRecorder StoppedRecording()(set-this-form)
+    (set-and-coerce-property! 'StartRecButton 'Text "REC" 'text)(set-and-coerce-property! 'StartRecButton 'TextColor -65536 'number))
+(define-event PrayerRecorder AfterSoundRecorded($sound)(set-this-form)
+    (set-and-coerce-property! 'StartRecButton 'Enabled #f 'boolean)(call-component-method 'SettingsDB 'StoreValue (*list-for-runtime* "SoundPath"  (lexical-value $sound)) '(text any))(set-and-coerce-property! 'PrayerPlayer 'Source (lexical-value $sound) 'text)(call-component-method 'PrayerPlayer 'Start (*list-for-runtime*) '()))
+;;; StopRecClock
+
+(add-component SettingsScreen Clock StopRecClock 
+)
+
+(define-event StopRecClock Timer()(set-this-form)
+    (call-component-method 'PrayerRecorder 'Stop (*list-for-runtime*) '()))
+(init-runtime)

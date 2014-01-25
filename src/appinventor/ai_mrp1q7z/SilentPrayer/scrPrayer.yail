@@ -1,0 +1,96 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_mrp1q7z.SilentPrayer.scrPrayer scrPrayer)
+(require <com.google.youngandroid.runtime>)
+
+(def g$g_defaltMessage (call-yail-primitive string-append (*list-for-runtime* "\u8a2d\u5b9a\u753b\u9762\u3067\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044" "\u4ee5\u4e0b\u306f\u3001\u30b5\u30f3\u30d7\u30eb\u3067\u3059\u3002" "\u3059\u3079\u3066\u306e\u539f\u70b9\u306f\u3042\u306a\u305f\u81ea\u8eab\u3067\u3059\u3002" "\u3042\u306a\u305f\u304c\u5909\u308f\u308c\u3070\u3001\u4ed6\u4eba\u3082\u4e16\u306e\u4e2d\u3082\u5909\u308f\u308a\u307e\u3059\u3002" "\u307e\u305a\u306f\u3001\u81ea\u5206\u3092\u6539\u9769\u3059\u308b\u3053\u3068\u304b\u3089\u306f\u3058\u3081\u307e\u3057\u3087\u3046\u3002" "\u79c1\u306f\u3001\u751f\u307e\u308c\u5909\u308f\u308a\u307e\u3059\u3002" "\u5fc3\u3092\u5165\u308c\u66ff\u3048\u3001\u8003\u3048\u3092\u6539\u3081\u3001\u4eba\u751f\u89b3\u3092\u5909\u3048\u3066\u3001" "\u9b42\u306e\u5185\u5965\u306e\u795e\u6027\u3092\u5b58\u5206\u306b\u767a\u63ee\u3057\u307e\u3059\u3002" "\u3069\u3046\u304b\uff0e\uff0e\uff0e" "\u9b42\u306e\u5965\u5e95\u306e\u529b\u304c\u5b58\u5206\u306b\u767a\u63ee\u3067\u304d\u307e\u3059\u3088\u3046\u306b\uff01" ) '(text text text text text text text text text text ) "join"))
+(def g$g_msgText "")
+(def g$g_msgNo 0)
+(def g$g_prayerCnt 0)
+;;; scrPrayer
+
+(do-after-form-creation (set-and-coerce-property! 'scrPrayer 'BackgroundColor #xFF000000 'number)
+ (set-and-coerce-property! 'scrPrayer 'Title "\u9ed9\u7977\u3092\u59cb\u3081\u307e\u3059" 'text)
+)
+
+(define-event scrPrayer Initialize()(set-this-form)
+    (set-and-coerce-property! 'MessageLabel 'Text "" 'text)(let ( ($interval (call-component-method 'SettingsDB 'GetValue (*list-for-runtime* "MsgTypingInterval"  300) '(text any)))  )   (set-and-coerce-property! 'PrintMessageClock 'TimerInterval (if (call-yail-primitive string-empty? (*list-for-runtime* (lexical-value $interval)) '(text) "is text empty?") 300 (lexical-value $interval)) 'number) )(set-and-coerce-property! 'PrintMessageClock 'TimerEnabled #t 'boolean)(let ( ($message (call-component-method 'SettingsDB 'GetValue (*list-for-runtime* "Message"  "") '(text any)))  )   (set-var! g$g_msgText (if (call-yail-primitive string-empty? (*list-for-runtime* (lexical-value $message)) '(text) "is text empty?") (get-var g$g_defaltMessage) (lexical-value $message))) )(set-and-coerce-property! 'PrayerSound 'Source (call-component-method 'SettingsDB 'GetValue (*list-for-runtime* "SoundPath"  "file:///mnt/sdcard/AppInventor/assets/prayer1.wav") '(text any)) 'text))
+(define-event scrPrayer BackPressed()(set-this-form)
+    (call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen"))
+;;; MessageLabel
+
+(add-component scrPrayer Label MessageLabel 
+(set-and-coerce-property! 'MessageLabel 'FontSize 20.0 'number)
+
+(set-and-coerce-property! 'MessageLabel 'Text "Message" 'text)
+
+(set-and-coerce-property! 'MessageLabel 'TextColor #xFFCCCCCC 'number)
+
+)
+
+;;; MessageCount
+
+(add-component scrPrayer Label MessageCount 
+(set-and-coerce-property! 'MessageCount 'FontSize 12.0 'number)
+
+(set-and-coerce-property! 'MessageCount 'Text "(1/99)" 'text)
+
+(set-and-coerce-property! 'MessageCount 'TextColor #xFF888888 'number)
+
+)
+
+;;; PrintMessageClock
+
+(add-component scrPrayer Clock PrintMessageClock 
+(set-and-coerce-property! 'PrintMessageClock 'TimerAlwaysFires #f 'boolean)
+
+(set-and-coerce-property! 'PrintMessageClock 'TimerEnabled #f 'boolean)
+
+)
+
+(define-event PrintMessageClock Timer()(set-this-form)
+    (set-var! g$g_msgNo (call-yail-primitive + (*list-for-runtime* (get-var g$g_msgNo) 1 ) '(number number ) "+"))(if (call-yail-primitive <= (*list-for-runtime* (get-var g$g_msgNo) (call-yail-primitive string-length (*list-for-runtime* (get-var g$g_msgText)) '(text) "length")) '(number number) "<=") (begin   (set-and-coerce-property! 'MessageLabel 'Text (call-yail-primitive string-substring (*list-for-runtime* (get-var g$g_msgText) 1 (get-var g$g_msgNo)) '(text number number) "segment") 'text)(set-and-coerce-property! 'MessageCount 'Text (call-yail-primitive string-append (*list-for-runtime* "(" (get-var g$g_msgNo) "/" (call-yail-primitive string-length (*list-for-runtime* (get-var g$g_msgText)) '(text) "length") ")" ) '(text text text text text ) "join") 'text)) (begin   (set-and-coerce-property! 'MessageCount 'Text "\u76ee\u3092\u9589\u3058\u3066\u3001\uff11\uff12\u56de\u7948\u308a\u307e\u3059" 'text)(set-and-coerce-property! 'PrintMessageClock 'TimerEnabled #f 'boolean)(set-and-coerce-property! 'PlayPrayerClock 'TimerInterval 5000 'number)(set-and-coerce-property! 'PlayPrayerClock 'TimerEnabled #t 'boolean)(call-component-method 'StartSound 'Play (*list-for-runtime*) '()))))
+;;; PlayPrayerClock
+
+(add-component scrPrayer Clock PlayPrayerClock 
+(set-and-coerce-property! 'PlayPrayerClock 'TimerAlwaysFires #f 'boolean)
+
+(set-and-coerce-property! 'PlayPrayerClock 'TimerEnabled #f 'boolean)
+
+(set-and-coerce-property! 'PlayPrayerClock 'TimerInterval 5000 'number)
+
+)
+
+(define-event PlayPrayerClock Timer()(set-this-form)
+    (set-var! g$g_prayerCnt (call-yail-primitive + (*list-for-runtime* (get-var g$g_prayerCnt) 1 ) '(number number ) "+"))(if (call-yail-primitive <= (*list-for-runtime* (get-var g$g_prayerCnt) 12) '(number number) "<=") (begin   (call-component-method 'PrayerSound 'Play (*list-for-runtime*) '())) (begin   (call-component-method 'EndPlayer 'Start (*list-for-runtime*) '())(set-and-coerce-property! 'PlayPrayerClock 'TimerEnabled #f 'boolean))))
+;;; PrayerSound
+
+(add-component scrPrayer Sound PrayerSound 
+(set-and-coerce-property! 'PrayerSound 'Source "prayer1.wav" 'text)
+
+)
+
+;;; StartSound
+
+(add-component scrPrayer Sound StartSound 
+(set-and-coerce-property! 'StartSound 'Source "prayer_start.wav" 'text)
+
+)
+
+;;; SettingsDB
+
+(add-component scrPrayer TinyDB SettingsDB 
+)
+
+;;; EndPlayer
+
+(add-component scrPrayer Player EndPlayer 
+(set-and-coerce-property! 'EndPlayer 'Source "prayer_end.wav" 'text)
+
+)
+
+(define-event EndPlayer Completed()(set-this-form)
+    (call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen"))
+(init-runtime)

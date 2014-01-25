@@ -1,0 +1,76 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_mrp1q7z.SilentPrayer.Screen1 Screen1)
+(require <com.google.youngandroid.runtime>)
+
+;;; Screen1
+
+(do-after-form-creation (set-and-coerce-property! 'Screen1 'BackgroundColor #x00FFFFFF 'number)
+ (set-and-coerce-property! 'Screen1 'BackgroundImage "top_bg.png" 'text)
+ (set-and-coerce-property! 'Screen1 'Icon "ic_launcher.png" 'text)
+ (set-and-coerce-property! 'Screen1 'Scrollable #f 'boolean)
+ (set-and-coerce-property! 'Screen1 'Title "\uff11\u5206\u3067\u5143\u6c17\u306b\u306a\u308b\u9ed9\u7977\u30a2\u30d7\u30ea" 'text)
+)
+
+;;; VerticalArrangement1
+
+(add-component Screen1 VerticalArrangement VerticalArrangement1 
+(set-and-coerce-property! 'VerticalArrangement1 'AlignHorizontal 3 'number)
+
+(set-and-coerce-property! 'VerticalArrangement1 'AlignVertical 2 'number)
+
+(set-and-coerce-property! 'VerticalArrangement1 'Width -2 'number)
+
+(set-and-coerce-property! 'VerticalArrangement1 'Height -2 'number)
+
+)
+
+;;; StartButton
+
+(add-component Screen1 Button StartButton 
+(set-and-coerce-property! 'StartButton 'FontSize 16.0 'number)
+
+(set-and-coerce-property! 'StartButton 'Text "Start" 'text)
+
+(set-and-coerce-property! 'StartButton 'Width -2 'number)
+
+)
+
+(define-event StartButton Click()(set-this-form)
+    (call-yail-primitive open-another-screen (*list-for-runtime* "scrPrayer") '(text) "open another screen"))
+;;; SettingsButton
+
+(add-component Screen1 Button SettingsButton 
+(set-and-coerce-property! 'SettingsButton 'FontSize 16.0 'number)
+
+(set-and-coerce-property! 'SettingsButton 'Text "\u8a2d\u5b9a" 'text)
+
+(set-and-coerce-property! 'SettingsButton 'Width -2 'number)
+
+)
+
+(define-event SettingsButton Click()(set-this-form)
+    (call-yail-primitive open-another-screen (*list-for-runtime* "SettingsScreen") '(text) "open another screen"))
+;;; UsageButton
+
+(add-component Screen1 Button UsageButton 
+(set-and-coerce-property! 'UsageButton 'FontSize 16.0 'number)
+
+(set-and-coerce-property! 'UsageButton 'Text "\u4f7f\u3044\u65b9" 'text)
+
+(set-and-coerce-property! 'UsageButton 'Width -2 'number)
+
+)
+
+(define-event UsageButton Click()(set-this-form)
+    (call-yail-primitive open-another-screen (*list-for-runtime* "UsageScreen") '(text) "open another screen"))
+;;; DummyLabel
+
+(add-component Screen1 Label DummyLabel 
+(set-and-coerce-property! 'DummyLabel 'Height 10 'number)
+
+)
+
+(init-runtime)

@@ -1,0 +1,24 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_mrp1q7z.SilentPrayer.UsageScreen UsageScreen)
+(require <com.google.youngandroid.runtime>)
+
+(def g$g_debugMode #f)
+;;; UsageScreen
+
+(do-after-form-creation (set-and-coerce-property! 'UsageScreen 'Scrollable #f 'boolean)
+ (set-and-coerce-property! 'UsageScreen 'Title "\u4f7f\u3044\u65b9" 'text)
+)
+
+(define-event UsageScreen Initialize()(set-this-form)
+    (set-and-coerce-property! 'WebUsage 'HomeUrl (if (get-var g$g_debugMode) "file:///mnt/sdcard/AppInventor/assets/usage.html" "file:///android_asset/usage.html") 'text)(call-component-method 'WebUsage 'GoHome (*list-for-runtime*) '()))
+(define-event UsageScreen BackPressed()(set-this-form)
+    (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'WebUsage 'CurrentUrl) (get-property 'WebUsage 'HomeUrl)) '(any any) "=") (begin   (call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen")) (begin   (call-component-method 'WebUsage 'GoBack (*list-for-runtime*) '()))))
+;;; WebUsage
+
+(add-component UsageScreen WebViewer WebUsage 
+)
+
+(init-runtime)

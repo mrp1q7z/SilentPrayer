@@ -1,0 +1,84 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="global_declaration" inline="false" x="116" y="118">
+    <title name="NAME">g_debugMode</title>
+    <value name="VALUE">
+      <block type="logic_boolean">
+        <title name="BOOL">FALSE</title>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" x="118" y="170">
+    <mutation component_type="Form" instance_name="UsageScreen" event_name="Initialize"></mutation>
+    <title name="COMPONENT_SELECTOR">UsageScreen</title>
+    <statement name="DO">
+      <block type="component_set_get" inline="false">
+        <mutation component_type="WebViewer" set_or_get="set" property_name="HomeUrl" is_generic="false" instance_name="WebUsage"></mutation>
+        <title name="COMPONENT_SELECTOR">WebUsage</title>
+        <title name="PROP">HomeUrl</title>
+        <value name="VALUE">
+          <block type="controls_choose" inline="false">
+            <value name="TEST">
+              <block type="lexical_variable_get">
+                <title name="VAR">global g_debugMode</title>
+              </block>
+            </value>
+            <value name="THENRETURN">
+              <block type="text">
+                <title name="TEXT">file:///mnt/sdcard/AppInventor/assets/usage.html</title>
+              </block>
+            </value>
+            <value name="ELSERETURN">
+              <block type="text">
+                <title name="TEXT">file:///android_asset/usage.html</title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="component_method">
+            <mutation component_type="WebViewer" method_name="GoHome" is_generic="false" instance_name="WebUsage"></mutation>
+            <title name="COMPONENT_SELECTOR">WebUsage</title>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" x="117" y="331">
+    <mutation component_type="Form" instance_name="UsageScreen" event_name="BackPressed"></mutation>
+    <title name="COMPONENT_SELECTOR">UsageScreen</title>
+    <statement name="DO">
+      <block type="controls_if" inline="false">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" inline="true">
+            <title name="OP">EQ</title>
+            <value name="A">
+              <block type="component_set_get">
+                <mutation component_type="WebViewer" set_or_get="get" property_name="CurrentUrl" is_generic="false" instance_name="WebUsage"></mutation>
+                <title name="COMPONENT_SELECTOR">WebUsage</title>
+                <title name="PROP">CurrentUrl</title>
+              </block>
+            </value>
+            <value name="B">
+              <block type="component_set_get">
+                <mutation component_type="WebViewer" set_or_get="get" property_name="HomeUrl" is_generic="false" instance_name="WebUsage"></mutation>
+                <title name="COMPONENT_SELECTOR">WebUsage</title>
+                <title name="PROP">HomeUrl</title>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_closeScreen"></block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method">
+            <mutation component_type="WebViewer" method_name="GoBack" is_generic="false" instance_name="WebUsage"></mutation>
+            <title name="COMPONENT_SELECTOR">WebUsage</title>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <yacodeblocks ya-version="83" language-version="17"></yacodeblocks>
+</xml>
